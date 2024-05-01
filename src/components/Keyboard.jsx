@@ -11,7 +11,6 @@ export default function Keyboard({ actionListener }) {
       console.error(error);
     }
   };
-
   const handleEnterClick = () => {
     try {
       actionListener.emit("enterClicked");
