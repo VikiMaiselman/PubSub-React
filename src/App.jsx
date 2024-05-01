@@ -9,7 +9,7 @@ function App() {
   const actionListener = new MyActionListener();
 
   return (
-    <div className="w-full h-screen flex flex-col justify-evenly items-center">
+    <div className="w-full h-screen flex flex-col justify-evenly items-center gap-8">
       <WordInputs actionListener={actionListener} />
       <Keyboard actionListener={actionListener} />
     </div>

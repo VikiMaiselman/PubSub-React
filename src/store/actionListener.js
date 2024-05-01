@@ -19,7 +19,6 @@ export class MyActionListener {
     const allListeners = this.actions.get(action);
     allListeners?.map((listenerFunc) => {
       try {
-        console.log(data);
         listenerFunc(data);
       } catch (error) {
         throw error;
