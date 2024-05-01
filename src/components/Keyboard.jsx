@@ -5,14 +5,26 @@ import { alphabet } from "../data/keyboard";
 export default function Keyboard({ actionListener }) {
   const handleLetterBtnClick = (e) => {
     const { value } = e.target;
-    actionListener.emit("letterBtnClicked", value);
+    try {
+      actionListener.emit("letterBtnClicked", value);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleEnterClick = () => {
-    actionListener.emit("enterClicked");
+    try {
+      actionListener.emit("enterClicked");
+    } catch (error) {
+      console.error(error);
+    }
   };
   const handleBackspaceClick = () => {
-    actionListener.emit("backspaceClicked");
+    try {
+      actionListener.emit("backspaceClicked");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

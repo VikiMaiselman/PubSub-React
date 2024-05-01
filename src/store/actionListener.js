@@ -17,6 +17,8 @@ export class MyActionListener {
 
   emit(action, data) {
     const allListeners = this.actions.get(action);
+    if (!allListeners) throw new Error(`Can't emit the event. Event ${action} does not exist.`);
+
     allListeners?.map((listenerFunc) => {
       try {
         listenerFunc(data);
