@@ -26,6 +26,23 @@ export default function Keyboard({ actionListener }) {
     }
   };
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (alphabet.includes(e.key.toUpperCase())) {
+        actionListener.emit("letterBtnClicked", e.key.toUpperCase());
+      } else if (e.key === "Enter") {
+        actionListener.emit("enterClicked");
+      } else if (e.key === "Backspace") {
+        actionListener.emit("backspaceClicked");
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
   return (
     <div>
       <div className="w-1/2 mx-auto">

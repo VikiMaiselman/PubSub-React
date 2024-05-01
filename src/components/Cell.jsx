@@ -1,7 +1,7 @@
 export default function Cell({ children, borderColor }) {
   const colorMap = {
     red: "border-red-500",
-    blue: "border-blue-500",
+    grey: "border-grey-500",
     green: "border-green-500",
   };
   let border = borderColor ? `border-2 border-solid ${colorMap[borderColor]}` : "";
