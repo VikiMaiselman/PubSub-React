@@ -55,7 +55,6 @@ export default function WordInputs({ actionListener, wordLength = 6 }) {
     <div className="w-2/3 flex justify-center items-center">
       {React.Children.toArray(
         Array.from({ length: wordLength }, (_, i) => {
-          console.log(letters);
           return <Cell borderColor={borderColor}>{i > letters.length ? "" : letters[i]}</Cell>;
         })
       )}
