@@ -5,30 +5,25 @@ import wordArray from "../data/dictionary.js";
 
 export default function WordInputs({ actionListener, wordLength = 6 }) {
   const [borderColor, setBorderColor] = useState("grey");
-  const [letters, setLetters] = useState(Array.from({ length: wordLength }, (_) => ""));
-  const indexRef = useRef(0);
+  const [letters, setLetters] = useState([]);
 
   const handleAddLetter = (letter) => {
-    if (indexRef.current >= letters.length) return;
-
     setLetters((prevLetters) => {
-      const copyLetters = [...prevLetters];
-      copyLetters[indexRef.current] = letter;
+      if (prevLetters.length >= wordLength) return prevLetters;
 
-      indexRef.current = indexRef.current + 1;
+      const copyLetters = [...prevLetters];
+      copyLetters.push(letter);
       return copyLetters;
     });
     setBorderColor("grey");
   };
 
   const handleRemoveLetter = () => {
-    if (indexRef.current - 1 < 0) return;
-    indexRef.current = indexRef.current - 1;
-
     setLetters((prevLetters) => {
-      const copyLetters = [...prevLetters];
-      copyLetters[indexRef.current] = "";
+      if (prevLetters.length === 0) return prevLetters;
 
+      const copyLetters = [...prevLetters];
+      copyLetters.pop();
       return copyLetters;
     });
     setBorderColor("grey");
@@ -36,7 +31,7 @@ export default function WordInputs({ actionListener, wordLength = 6 }) {
 
   const checkWordExists = () => {
     setLetters((prevLetters) => {
-      if (indexRef.current < prevLetters.length) setBorderColor("red");
+      if (wordLength > prevLetters.length) setBorderColor("red");
       else if (wordArray.indexOf(prevLetters.join("").toLowerCase()) === -1) setBorderColor("red");
       else setBorderColor("green");
 
@@ -58,7 +53,12 @@ export default function WordInputs({ actionListener, wordLength = 6 }) {
 
   return (
     <div className="w-2/3 flex justify-center items-center">
-      {React.Children.toArray(letters.map((l) => <Cell borderColor={borderColor}>{l}</Cell>))}
+      {React.Children.toArray(
+        Array.from({ length: wordLength }, (_, i) => {
+          console.log(letters);
+          return <Cell borderColor={borderColor}>{i > letters.length ? "" : letters[i]}</Cell>;
+        })
+      )}
     </div>
   );
 }
